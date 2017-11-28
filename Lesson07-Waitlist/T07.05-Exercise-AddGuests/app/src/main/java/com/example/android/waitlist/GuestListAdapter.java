@@ -19,8 +19,9 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
 
     /**
      * Constructor using the context and the db cursor
+     *
      * @param context the calling context/activity
-     * @param cursor the db cursor with waitlist data to display
+     * @param cursor  the db cursor with waitlist data to display
      */
     public GuestListAdapter(Context context, Cursor cursor) {
         this.mContext = context;
@@ -57,36 +58,42 @@ public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.Gues
         return mCursor.getCount();
     }
 
-    // TODO (15) Create a new function called swapCursor that takes the new cursor and returns void
+    // COMPLETED(15) Create a new function called swapCursor that takes the new cursor and returns void
+    public void swapCursor(Cursor newCursor) {
+        // COMPLETED (16) Inside, check if the current cursor is not null, and close it if so
+        if (mCursor != null) mCursor.close();
+        //  COMPLETED (17) Update the local mCursor to be equal to  newCursor
+        mCursor = newCursor;
+        //  COMPLETED (18) Check if the newCursor is not null, and call this.notifyDataSetChanged() if so
+        if (newCursor != null) {
+            this.notifyDataSetChanged();
+        }
+    }
 
-    // TODO (16) Inside, check if the current cursor is not null, and close it if so
 
-    // TODO (17) Update the local mCursor to be equal to  newCursor
 
-    // TODO (18) Check if the newCursor is not null, and call this.notifyDataSetChanged() if so
+/**
+ * Inner class to hold the views needed to display a single item in the recycler-view
+ */
+class GuestViewHolder extends RecyclerView.ViewHolder {
+
+    // Will display the guest name
+    TextView nameTextView;
+    // Will display the party size number
+    TextView partySizeTextView;
 
     /**
-     * Inner class to hold the views needed to display a single item in the recycler-view
+     * Constructor for our ViewHolder. Within this constructor, we get a reference to our
+     * TextViews
+     *
+     * @param itemView The View that you inflated in
+     *                 {@link GuestListAdapter#onCreateViewHolder(ViewGroup, int)}
      */
-    class GuestViewHolder extends RecyclerView.ViewHolder {
-
-        // Will display the guest name
-        TextView nameTextView;
-        // Will display the party size number
-        TextView partySizeTextView;
-
-        /**
-         * Constructor for our ViewHolder. Within this constructor, we get a reference to our
-         * TextViews
-         *
-         * @param itemView The View that you inflated in
-         *                 {@link GuestListAdapter#onCreateViewHolder(ViewGroup, int)}
-         */
-        public GuestViewHolder(View itemView) {
-            super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
-            partySizeTextView = (TextView) itemView.findViewById(R.id.party_size_text_view);
-        }
-
+    public GuestViewHolder(View itemView) {
+        super(itemView);
+        nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
+        partySizeTextView = (TextView) itemView.findViewById(R.id.party_size_text_view);
     }
+
+}
 }
