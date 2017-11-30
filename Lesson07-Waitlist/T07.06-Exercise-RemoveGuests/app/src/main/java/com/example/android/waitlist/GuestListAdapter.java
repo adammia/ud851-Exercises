@@ -1,5 +1,5 @@
 package com.example.android.waitlist;
-
+//T07.06 TO DO Completed!
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
